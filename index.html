@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<title>JobTread Frontend Exercise</title>
+<script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+
+<div id="root"></div>
+
+<body>
+    <script>
+        class Canvas extends React.Component {
+            render() {
+                return React.createElement(
+                    "div",
+                    { id: "bchart" },
+
+                    null
+                );
+            }
+        }
+
+        ReactDOM.render(
+            // React.createElement(Canvas, null),
+            React.createElement(Canvas),
+            document.getElementById("root")
+        );
+    </script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            background: linear-gradient(0deg, #0039fe, #000105);
+        }
+
+        section {
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(0deg, #0039fe, #000105);
+        }
+
+        .box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 550px;
+            height: 300px;
+            background: transparent;
+            border-bottom: 1px solid #000;
+            border-left: 1px solid #000;
+            display: flex;
+        }
+
+        .box .skill {
+            position: relative;
+            flex: 1;
+            text-align: center;
+        }
+
+        .box .skill .graph {
+            position: absolute;
+            width: 40px;
+            background: rgba(0, 0, 0, 1);
+            bottom: 0;
+            left: 50%;
+            transform: translate(-50%);
+        }
+
+        .box .skill .graph:before {
+            content: ' ';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            right: 2px;
+            bottom: 0;
+            background: linear-gradient(0deg, #003ba5, #009ffe);
+        }
+
+        .box .skill .graph:after {
+            content: " ";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50%;
+            height: 100%;
+            background: rgba(255, 255, 255, .1);
+        }
+
+        .box .skill .graph .percent {
+            position: absolute;
+            top: -20px;
+            left: 0;
+            transform: translate(-50%);
+            text-align: center;
+            color: #fff;
+            font-weight: bold;
+        }
+
+
+
+        .box .skill .name {
+            position: absolute;
+            bottom: -30px;
+            left: 28px;
+            transform: translateX(-50%);
+            text-align: center;
+            color: #fff;
+            background: #001e8a;
+            padding: 2px 16px;
+            border-radius: 4px;
+        }
+    </style>
+
+    <script type="text/JavaScript">
+
+
+            const heroPlaceholder = document.getElementById('bchart');
+heroPlaceholder.innerHTML = `
+ <section>
+<div class="box">
+            <div class="skill">
+                <div id="bar0" class="graph" style="height: 85%">
+                    <div id="percent0" class="percent">85%</div>
+                </div>
+                <div class="name">1</div>
+            </div>
+
+            <div class="skill">
+                <div id="bar1" class="graph" style="height: 95%">
+                    <div id="percent1" class="percent">92%</div>
+                </div>
+                <div class="name">2</div>
+            </div>
+
+            <div class="skill">
+                <div id="bar2" class="graph" style="height: 80%">
+                    <div id="percent2" class="percent">80%</div>
+                </div>
+                <div class="name">3</div>
+            </div>
+
+            <div class="skill">
+                <div id="bar3" class="graph" style="height: 75%">
+                    <div id="percent3" class="percent">75%</div>
+                </div>
+                <div class="name">4</div>
+            </div>
+
+            <div class="skill">
+                <div id="bar4" class="graph" style="height: 95%">
+                    <div id="percent4" class="percent">95%</div>
+                </div>
+                <div class="name">5</div>
+            </div>
+
+            <div class="skill">
+                <div id="bar5" class="graph" style="height: 95%">
+                    <div id="percent5" class="percent">95%</div>
+                </div>
+                <div class="name">6</div>
+            </div>
+
+            <div class="skill">
+                <div id="bar6" class="graph" style="height: 95%">
+                    <div id="percent6" class="percent">95%</div>
+                </div>
+                <div class="name">7</div>
+            </div>
+
+            <div class="skill">
+                <div id="bar7" class="graph" style="height: 95%">
+                    <div id="percent7" class="percent">95%</div>
+                </div>
+                <div class="name">8</div>
+            </div>
+
+            <div class="skill">
+                <div id="bar8" class="graph" style="height: 95%">
+                    <div id="percent8" class="percent">95%</div>
+                </div>
+                <div class="name">9</div>
+            </div>
+
+            <div class="skill">
+                <div id="bar9" class="graph" style="height: 95%">
+                    <div id="percent9" class="percent">95%</div>
+                </div>
+                <div class="name">10</div>
+            </div>
+        </div>
+    </section>    
+`;
+
+window.fetch = (function(fetch) {
+      return function() {
+        const begin = Date.now();
+        return fetch.apply(this, arguments).then(function(response) {
+          response.timing = Date.now() - begin;// ask adrian why?
+          return response;
+        });
+      };
+    })(window.fetch);
+    const responseTimes = [];
+    const getTimeBack = async() => {
+      try{
+      const response = await fetch('https://httpbin.org/json');
+      if(response.status < 1000) {
+          console.log(response.timing);
+          if (responseTimes.length < 10) { 
+            responseTimes.push(response.timing); 
+          }
+          else{ 
+            responseTimes.shift() 
+            responseTimes.push(response.timing);
+          }
+          console.log(responseTimes);
+        //   const firstBar = document.getElementById("bar-one");
+        //   firstBar.style.height = `${responseTimes[0]}%`;
+        //  console.log(firstBar);
+        //   console.log(firstBar.style.height);
+          for(let i = 0;  i <= 10; i++){
+            const bar = document.getElementById(`bar${i}`);
+            console.log('bar',bar);
+          bar.style.height = `${responseTimes[i]}%`;
+            // console.log(bar.style.height);
+            // console.log('bar',bar);
+            const percentage = document.getElementById(`percent${i}`);
+            percentage.innerHTML = `${responseTimes[i]}`;
+          }
+      }
+      else {
+          console.log("no response from server");
+      }
+      }catch(err) {
+          //catches errors both in fetch and response.json
+          console.log(err);
+      }
+      finally {
+          setTimeout(getTimeBack, 1000)
+      }
+    };
+    getTimeBack();
+
+    console.log(getTimeBack.responseTimes[0])
+  </script>
+</body>
+
+</html>
