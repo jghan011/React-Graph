@@ -20,7 +20,6 @@
         }
 
         ReactDOM.render(
-            // React.createElement(Canvas, null),
             React.createElement(Canvas),
             document.getElementById("root")
         );
@@ -46,7 +45,7 @@
             left: 50%;
             transform: translate(-50%, -50%);
             width: 550px;
-            height: 300px;
+            height: 100px;
             background: transparent;
             border-bottom: 1px solid #000;
             border-left: 1px solid #000;
@@ -121,73 +120,73 @@ heroPlaceholder.innerHTML = `
  <section>
 <div class="box">
             <div class="skill">
-                <div id="bar0" class="graph" style="height: 85%">
+                <div id="bar0" class="graph" style="height: 0%">
                     <div id="percent0" class="percent">85%</div>
                 </div>
-                <div class="name">1</div>
+                <div class="name">10</div>
             </div>
 
             <div class="skill">
-                <div id="bar1" class="graph" style="height: 95%">
+                <div id="bar1" class="graph" style="height: 0%">
                     <div id="percent1" class="percent">92%</div>
-                </div>
-                <div class="name">2</div>
-            </div>
-
-            <div class="skill">
-                <div id="bar2" class="graph" style="height: 80%">
-                    <div id="percent2" class="percent">80%</div>
-                </div>
-                <div class="name">3</div>
-            </div>
-
-            <div class="skill">
-                <div id="bar3" class="graph" style="height: 75%">
-                    <div id="percent3" class="percent">75%</div>
-                </div>
-                <div class="name">4</div>
-            </div>
-
-            <div class="skill">
-                <div id="bar4" class="graph" style="height: 95%">
-                    <div id="percent4" class="percent">95%</div>
-                </div>
-                <div class="name">5</div>
-            </div>
-
-            <div class="skill">
-                <div id="bar5" class="graph" style="height: 95%">
-                    <div id="percent5" class="percent">95%</div>
-                </div>
-                <div class="name">6</div>
-            </div>
-
-            <div class="skill">
-                <div id="bar6" class="graph" style="height: 95%">
-                    <div id="percent6" class="percent">95%</div>
-                </div>
-                <div class="name">7</div>
-            </div>
-
-            <div class="skill">
-                <div id="bar7" class="graph" style="height: 95%">
-                    <div id="percent7" class="percent">95%</div>
-                </div>
-                <div class="name">8</div>
-            </div>
-
-            <div class="skill">
-                <div id="bar8" class="graph" style="height: 95%">
-                    <div id="percent8" class="percent">95%</div>
                 </div>
                 <div class="name">9</div>
             </div>
 
             <div class="skill">
-                <div id="bar9" class="graph" style="height: 95%">
+                <div id="bar2" class="graph" style="height: 0%">
+                    <div id="percent2" class="percent">80%</div>
+                </div>
+                <div class="name">8</div>
+            </div>
+
+            <div class="skill">
+                <div id="bar3" class="graph" style="height: 0%">
+                    <div id="percent3" class="percent">75%</div>
+                </div>
+                <div class="name">7</div>
+            </div>
+
+            <div class="skill">
+                <div id="bar4" class="graph" style="height: 0%">
+                    <div id="percent4" class="percent">95%</div>
+                </div>
+                <div class="name">6</div>
+            </div>
+
+            <div class="skill">
+                <div id="bar5" class="graph" style="height: 0%">
+                    <div id="percent5" class="percent">95%</div>
+                </div>
+                <div class="name">5</div>
+            </div>
+
+            <div class="skill">
+                <div id="bar6" class="graph" style="height: 0%">
+                    <div id="percent6" class="percent">95%</div>
+                </div>
+                <div class="name">4</div>
+            </div>
+
+            <div class="skill">
+                <div id="bar7" class="graph" style="height: 0%">
+                    <div id="percent7" class="percent">95%</div>
+                </div>
+                <div class="name">3</div>
+            </div>
+
+            <div class="skill">
+                <div id="bar8" class="graph" style="height: 0%">
+                    <div id="percent8" class="percent">95%</div>
+                </div>
+                <div class="name">2</div>
+            </div>
+
+            <div class="skill">
+                <div id="bar9" class="graph" style="height: 0%">
                     <div id="percent9" class="percent">95%</div>
                 </div>
-                <div class="name">10</div>
+                <div class="name">1</div>
             </div>
         </div>
     </section>    
@@ -202,7 +201,7 @@ window.fetch = (function(fetch) {
         });
       };
     })(window.fetch);
-    const responseTimes = [];
+    const responseTimes = new Array(10).fill(0);
     const getTimeBack = async() => {
       try{
       const response = await fetch('https://httpbin.org/json');
@@ -220,7 +219,7 @@ window.fetch = (function(fetch) {
         //   firstBar.style.height = `${responseTimes[0]}%`;
         //  console.log(firstBar);
         //   console.log(firstBar.style.height);
-          for(let i = 0;  i <= 10; i++){
+          for(let i = 0;  i < responseTimes.length; i++){
             const bar = document.getElementById(`bar${i}`);
             console.log('bar',bar);
           bar.style.height = `${responseTimes[i]}%`;
