@@ -39,6 +39,25 @@
             background: linear-gradient(0deg, #0039fe, #000105);
         }
 
+        .headingOne {
+            position: relative;
+            text-align: center;
+            color: white;
+            top: 460px;
+            right: 367px;
+
+        }
+
+        .headingTwo {
+            position: relative;
+            text-align: center;
+            color: white;
+            top: 570px;
+
+
+
+        }
+
         .box {
             position: absolute;
             top: 50%;
@@ -90,7 +109,7 @@
         .box .skill .graph .percent {
             position: absolute;
             top: -20px;
-            left: 0;
+            left: 20px;
             transform: translate(-50%);
             text-align: center;
             color: #fff;
@@ -109,6 +128,7 @@
             background: #001e8a;
             padding: 2px 16px;
             border-radius: 4px;
+            font-size: 19px;
         }
     </style>
 
@@ -117,7 +137,11 @@
 
             const heroPlaceholder = document.getElementById('bchart');
 heroPlaceholder.innerHTML = `
+
  <section>
+    <h3 class ="name headingOne">Time(ms)</h3>
+    <h3 class ="name headingTwo">Tracking the Responses</h3>
+
 <div class="box">
             <div class="skill">
                 <div id="bar0" class="graph" style="height: 0%">
@@ -158,7 +182,7 @@ heroPlaceholder.innerHTML = `
                 <div id="bar5" class="graph" style="height: 0%">
                     <div id="percent5" class="percent">95%</div>
                 </div>
-                <div class="name">5</div>
+                <div class="name">5 </div>
             </div>
 
             <div class="skill">
@@ -196,7 +220,7 @@ window.fetch = (function(fetch) {
       return function() {
         const begin = Date.now();
         return fetch.apply(this, arguments).then(function(response) {
-          response.timing = Date.now() - begin;// ask adrian why?
+          response.timing = Date.now() - begin;
           return response;
         });
       };
@@ -215,16 +239,11 @@ window.fetch = (function(fetch) {
             responseTimes.push(response.timing);
           }
           console.log(responseTimes);
-        //   const firstBar = document.getElementById("bar-one");
-        //   firstBar.style.height = `${responseTimes[0]}%`;
-        //  console.log(firstBar);
-        //   console.log(firstBar.style.height);
           for(let i = 0;  i < responseTimes.length; i++){
             const bar = document.getElementById(`bar${i}`);
             console.log('bar',bar);
           bar.style.height = `${responseTimes[i]}%`;
-            // console.log(bar.style.height);
-            // console.log('bar',bar);
+   
             const percentage = document.getElementById(`percent${i}`);
             percentage.innerHTML = `${responseTimes[i]}`;
           }
@@ -233,7 +252,6 @@ window.fetch = (function(fetch) {
           console.log("no response from server");
       }
       }catch(err) {
-          //catches errors both in fetch and response.json
           console.log(err);
       }
       finally {
